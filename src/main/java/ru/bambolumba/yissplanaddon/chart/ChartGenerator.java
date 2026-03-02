@@ -106,7 +106,7 @@ public class ChartGenerator {
 
     private List<String> resolveTop5Names(List<SnapshotRow> rows) {
         if (rows.isEmpty()) return List.of();
-        String lastJson = rows.getLast().top5Json();
+        String lastJson = rows.get(rows.size() - 1).top5Json();
         List<PlayerEntry> latest = repository.parseTop5Json(lastJson);
         return latest.stream()
                 .map(PlayerEntry::name)

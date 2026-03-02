@@ -52,11 +52,17 @@ public class SnapshotRepository {
     }
 
     public void deleteOldRecords(int retentionDays) {
-        try (Connection conn = db.getConnection(); Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DELETE FROM ypa_economy_snapshots WHERE captured_at < NOW() - INTERVAL "
-                    + retentionDays + " DAY");
-            stmt.executeUpdate("DELETE FROM ypa_economy_income WHERE captured_at < NOW() - INTERVAL "
-                    + retentionDays + " DAY");
+        try (Connection conn = db.getConnection()) {
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "DELETE FROM ypa_economy_snapshots WHERE captured_at < NOW() - INTERVAL ? DAY")) {
+                ps.setInt(1, retentionDays);
+                ps.executeUpdate();
+            }
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "DELETE FROM ypa_economy_income WHERE captured_at < NOW() - INTERVAL ? DAY")) {
+                ps.setInt(1, retentionDays);
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Ошибка удаления старых записей", e);
         }
