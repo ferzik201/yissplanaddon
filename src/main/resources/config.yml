@@ -1,0 +1,19 @@
+database:
+  host: localhost
+  port: 3306
+  name: "minecraft"
+  user: "mc_user"
+  password: "changeme"
+  pool-size: 3
+
+income-coeff:
+  default-ratio: 1.0
+  base-value: 3000.0
+
+snapshots:
+  interval-minutes: 10
+  retention-days: 60
+
+chart:
+  output-path: ""
+  regenerate-offset-minutes: 2
