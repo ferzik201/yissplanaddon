@@ -1,0 +1,10 @@
+name: YissPlanAddon
+version: 4.0.0
+main: ru.bambolumba.yissplanaddon.YissPlanAddon
+api-version: "1.21"
+softdepend: [Plan, XConomy]
+commands:
+  yissplan:
+    description: Управление YissPlanAddon
+    usage: /yissplan <reload|snapshot|chart>
+    permission: yissplanaddon.admin

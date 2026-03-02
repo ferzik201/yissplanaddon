@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YissCraft — Экономика</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        .card {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card h2 {
+            margin-bottom: 16px;
+            font-size: 1.2rem;
+        }
+        canvas { width: 100% !important; }
+    </style>
+</head>
+<body>
+    <h1>💰 YissCraft — Статистика экономики</h1>
+
+    <div class="card">
+        <h2>Общее количество монет</h2>
+        <canvas id="totalCoinsChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>Коэффициент дохода</h2>
+        <canvas id="incomeCoeffChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>Баланс топ-5 игроков</h2>
+        <canvas id="top5Chart"></canvas>
+    </div>
+
+    <script>
+        const gridColor = 'rgba(255,255,255,0.08)';
+        const commonOptions = {
+            responsive: true,
+            scales: {
+                x: { ticks: { color: '#e0e0e0' }, grid: { color: gridColor } },
+                y: { ticks: { color: '#e0e0e0' }, grid: { color: gridColor } }
+            },
+            plugins: { legend: { labels: { color: '#e0e0e0' } } }
+        };
+
+        new Chart(document.getElementById('totalCoinsChart'), {
+            type: 'line',
+            data: {
+                labels: {{TOTAL_COINS_LABELS}},
+                datasets: [{
+                    label: 'Всего монет',
+                    data: {{TOTAL_COINS_DATA}},
+                    borderColor: '#60d65e',
+                    backgroundColor: 'rgba(96,214,94,0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: commonOptions
+        });
+
+        new Chart(document.getElementById('incomeCoeffChart'), {
+            type: 'line',
+            data: {
+                labels: {{INCOME_LABELS}},
+                datasets: [{
+                    label: 'Коэффициент дохода',
+                    data: {{INCOME_DATA}},
+                    borderColor: '#2e9ff0',
+                    backgroundColor: 'rgba(46,159,240,0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: commonOptions
+        });
+
+        new Chart(document.getElementById('top5Chart'), {
+            type: 'line',
+            data: {
+                labels: {{TOP5_LABELS}},
+                datasets: {{TOP5_DATASETS}}
+            },
+            options: commonOptions
+        });
+    </script>
+</body>
+</html>
